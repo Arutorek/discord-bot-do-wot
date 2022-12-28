@@ -1,10 +1,12 @@
 import discord
 import main_bot_logic
+import json
 from discord.ext import commands
 
 
 def run_discord_bot():
-    TOKEN = 'MTA1NTA5MzQ3Nzc5MDE4NzU4MQ.GxU-Pi.YIw__dI8CfJI_cGEU3_mmV5GF-gyOXxabagq24'
+    with open('config.json', 'r') as cfg:
+        TOKEN = json.load(cfg)
     bot = commands.Bot(command_prefix='$', intents=discord.Intents.all(), case_insensitive=True, self_bot=True)
 
     @bot.command(name="start")
@@ -17,4 +19,4 @@ def run_discord_bot():
             await channel.send(url)
 
 
-    bot.run(TOKEN)
+    bot.run(TOKEN["token"])
