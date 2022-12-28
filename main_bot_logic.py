@@ -17,7 +17,7 @@ data_from_page = []
 
 
 def web_scraper_wot():
-    data_elements = soup.find('div', class_='post-content')
+    data_elements = soup.find('div', class_='post-inner post-hover')
     return data_elements
 
 
@@ -34,17 +34,16 @@ def checking_update(url, last_url):
         return True
 
 
-def main():
-    last_url = None
+def main(last_url):
     while True:
-        time.sleep(3)
+        time.sleep(300)
         data_elements = web_scraper_wot()
         url = get_link_of_data_to_post(data_elements)
         is_update = checking_update(url, last_url)
-        print(is_update)
+        print("new update status is: " + is_update)
         if is_update:
             last_url = url
             return url
         
-
-main()
+if __name__ == "__main__":
+    main(last_url=None)
