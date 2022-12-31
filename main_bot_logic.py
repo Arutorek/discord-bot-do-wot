@@ -35,7 +35,6 @@ def checking_update(url, last_url):
 
 
 def main(last_url):
-  time.sleep(10)
   data_elements = web_scraper_wot()
   url = get_link_of_data_to_post(data_elements)
   is_update = checking_update(url, last_url)
