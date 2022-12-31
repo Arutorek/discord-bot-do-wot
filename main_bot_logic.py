@@ -17,14 +17,22 @@ data_from_page = []
 
 
 def web_scraper_wot():
-  data_elements = soup.find('div', class_='post-inner post-hover')
+  data_elements = soup.find_all('div', class_='post-inner post-hover')
   return data_elements
 
 
-def get_link_of_data_to_post(data_elements):
-  a = data_elements.find('a', href=True)
-  url = a['href']
-  return url
+def get_link_of_data_to_post(data_elements, last_url):
+  urls = []
+  is_update = False
+  for data_element in data_elements:
+    a = data_element.find('a', href=True)
+    url = a['href']
+    is_update = checking_update(url, last_url)
+    if is_update:
+      return is_update, urls
+    urls.append(url)
+  return is_update, urls
+    
 
 
 def checking_update(url, last_url):
@@ -36,9 +44,7 @@ def checking_update(url, last_url):
 
 def main(last_url):
   data_elements = web_scraper_wot()
-  url = get_link_of_data_to_post(data_elements)
-  is_update = checking_update(url, last_url)
-  return is_update, url
+  return get_link_of_data_to_post(data_elements, last_url)
 
 
 if __name__ == "__main__":

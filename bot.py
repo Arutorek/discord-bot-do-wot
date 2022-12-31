@@ -19,16 +19,16 @@ async def on_ready():
   geting_wot_news_from_rykoszet_webpage.start()
 
 
-@tasks.loop(seconds=600)
+@tasks.loop(seconds=3600)
 async def geting_wot_news_from_rykoszet_webpage():
-  print("test")
   base_url = None
   while True:
-    is_update, url = main_bot_logic.main(base_url)
+    is_update, urls = main_bot_logic.main(base_url)
     if is_update:
-      base_url = url
-      channel = bot.get_channel(1053402661967368203)
-      await channel.send(url)
+      base_url = urls[0]
+      for url in urls:
+        channel = bot.get_channel(1053402661967368203)
+        await channel.send(url)
 
 keep_alive()
 bot.run(TOKEN["token"])
