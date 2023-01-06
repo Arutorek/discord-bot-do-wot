@@ -2,7 +2,6 @@ import discord
 import main_bot_logic
 import json
 from discord.ext import commands, tasks
-from keep_alive import keep_alive
 
 
 with open('config.json', 'r') as cfg:
