@@ -38,5 +38,4 @@ async def help(ctx):
     embed.add_field(name="Główne zadania bota:", value="Pobieranie  z internetu i wysyłanie na serwer informacji o nowościach w grze World of Tanks.")
     await ctx.channel.send(embed=embed)
 
-keep_alive()
 bot.run(TOKEN["token"])
