@@ -19,7 +19,7 @@ async def on_ready():
   geting_wot_news_from_rykoszet_webpage.start()
 
 
-@tasks.loop(seconds=2)
+@tasks.loop(seconds=19200)
 async def geting_wot_news_from_rykoszet_webpage():
   channel = bot.get_channel(1053402661967368203)
   async for message in channel.history(limit=100):
