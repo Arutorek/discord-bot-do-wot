@@ -37,4 +37,4 @@ I finally managed to learn it all and finally write this bot.
 #### And now run bot, let's enter command:
 * Python main_bot_logic.py
 
-###Whole bot with discord.
+### Whole bot with discord.
