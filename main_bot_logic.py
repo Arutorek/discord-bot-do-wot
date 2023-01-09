@@ -21,31 +21,48 @@ def web_scraper_wot():
   return data_elements
 
 
-def get_link_of_data_to_post(data_elements, last_url):
-  urls = []
-  is_update = False
-  for data_element in data_elements:
-    a = data_element.find('a', href=True)
-    url = a['href']
-    is_update = checking_update(url, last_url)
-    if is_update:
-      return is_update, urls
-    urls.append(url)
-  return is_update, urls
-    
+def  get_link_of_data_to_post(data_element):
+  a = data_element.find('a', href=True)
+  return a['href']
 
 
 def checking_update(url, last_url):
-  if url == last_url or url == None:
+  if url == last_url:
     return False
   else:
     return True
 
 
+def createing_list_of_urls(data_elements, last_url):
+  urls = []
+  is_update = False
+  for data_element in data_elements:
+    if data_element == data_elements[0]:
+      continue
+    url = get_link_of_data_to_post(data_element)
+    is_new_article = checking_update(url, last_url)
+    if is_new_article:
+      is_update = True
+      urls.append(url)
+      continue
+    break
+  return urls, is_update
+
+
 def main(last_url):
   data_elements = web_scraper_wot()
-  return get_link_of_data_to_post(data_elements, last_url)
+  urls = createing_list_of_urls(data_elements, last_url)
+  return urls
 
 
 if __name__ == "__main__":
-  main(last_url=None)
+  last_url = "https://rykoszet.info/2023/01/06/wczesne-pobranie-aktualizacji-1-19-1-jest-juz-mozliwe/"
+  while True:
+    time.sleep(2)
+    data_elements = web_scraper_wot()
+    urls, is_update = createing_list_of_urls(data_elements, last_url)
+    if is_update:
+      last_url = urls[0]
+      print("Update!!! new links here:\n", urls)
+    else:
+      print("There is no update yet")

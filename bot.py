@@ -19,16 +19,18 @@ async def on_ready():
   geting_wot_news_from_rykoszet_webpage.start()
 
 
-@tasks.loop(seconds=3600)
+@tasks.loop(seconds=2)
 async def geting_wot_news_from_rykoszet_webpage():
-  base_url = None
-  while True:
-    is_update, urls = main_bot_logic.main(base_url)
-    if is_update:
-      base_url = urls[0]
-      for url in urls:
-        channel = bot.get_channel(1053402661967368203)
-        await channel.send(url)
+  channel = bot.get_channel(1058156429606920212)
+  async for message in channel.history(limit=100):
+    if message.author == bot.user:
+      last_url = message.content
+      break
+  urls, is_update = main_bot_logic.main(last_url)
+  if is_update:
+    for url in urls:
+      # channel = bot.get_channel(1053402661967368203)
+      await channel.send(url)
 
 
 @bot.command(name="help")
