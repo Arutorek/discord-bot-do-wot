@@ -23,10 +23,10 @@ I finally managed to learn it all and finally write this bot.
 
 
 ## Launch
-###Only main logic without connection with discord.
+### Only main logic without connection with discord.
 ####To run only the main logic you need to download some stuff first:
 * Python 3.11.1 <br />
-####Then install:
+#### Then install:
 * requests
 * bs4
 #### To do this you need to enter the console and write in it:
