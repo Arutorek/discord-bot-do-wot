@@ -21,7 +21,7 @@ async def on_ready():
 
 @tasks.loop(seconds=2)
 async def geting_wot_news_from_rykoszet_webpage():
-  channel = bot.get_channel(1058156429606920212)
+  channel = bot.get_channel(1053402661967368203)
   async for message in channel.history(limit=100):
     if message.author == bot.user:
       last_url = message.content
@@ -29,7 +29,6 @@ async def geting_wot_news_from_rykoszet_webpage():
   urls, is_update = main_bot_logic.main(last_url)
   if is_update:
     for url in urls:
-      # channel = bot.get_channel(1053402661967368203)
       await channel.send(url)
 
 
